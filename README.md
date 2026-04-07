@@ -1,16 +1,29 @@
-# Expense Tracker 
+# 💰 Expense Tracker
 
-A simple python-based expense tracker to help manage and track daily expenses.
+A simple Python-based expense tracker that helps users manage and calculate their daily expenses.
 
-# Features
--Add expenses
--View expense records 
--Simple and easy to use
+## 🚀 Features
+- Add expenses
+- Calculate total expenses
+- Simple and user-friendly command-line interface
 
-# How to run
-1. Make sure Python is installed
-2. Open terminal in the project folder
-3. Run:
-     ```bash
-     python expense_tracker.py
-     
+## 🛠️ Tech Used
+- Python
+
+## ▶️ How to Run
+1. Clone the repository:
+   git clone https://github.com/Krishi-bot/expense-tracker.git
+
+2. Navigate to the folder:
+   cd expense-tracker
+
+3. Run the program:
+   python expense_tracker.py
+
+## 📌 Future Improvements
+- Add expense categories (food, travel, etc.)
+- Save data to a file (CSV or database)
+- Monthly expense summary
+
+## 👤 Author
+- Krishika Singh
