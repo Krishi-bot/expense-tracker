@@ -20,6 +20,14 @@ A simple Python-based expense tracker that helps users manage and calculate thei
 3. Run the program:
    python expense_tracker.py
 
+## 💡 Example Usage
+
+Enter expense: Food 200  
+Enter expense: Travel 500  
+
+Total Expense: 700
+
+
 ## 📌 Future Improvements
 - Add expense categories (food, travel, etc.)
 - Save data to a file (CSV or database)
