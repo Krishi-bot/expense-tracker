@@ -1,61 +1,80 @@
-expenses =[]
+import csv
+import os
 
-def add_expense(amount, category):
-   amount=float((input("Enter amount: ")))
-   category=float((input("Enter category: ")))
-   expense.append({"amount": amount, "category": category})
-   print("Expense added")
+FILENAME = "expenses.csv"
+expenses = []
 
-def view_expense():
-    if not expense:
-        print("No expense recorded")
+def load_expenses():
+    """Load expenses from CSV file on startup."""
+    if os.path.exists(FILENAME):
+        with open(FILENAME, "r") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                expenses.append({"amount": float(row["amount"]), "category": row["category"]})
+        print(f"Loaded {len(expenses)} expense(s) from {FILENAME}\n")
+
+def save_expenses():
+    """Save all expenses to CSV file."""
+    with open(FILENAME, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["amount", "category"])
+        writer.writeheader()
+        writer.writerows(expenses)
+    print("Expenses saved.\n")
+
+def add_expense():
+    amount = float(input("Enter amount: "))
+    category = input("Enter category: ")
+    expenses.append({"amount": amount, "category": category})
+    print("Expense added.\n")
+
+def view_expenses():
+    if not expenses:
+        print("No expenses recorded.\n")
         return
-
-    print("All expense: ")
-    for expense in expenses:
-        print(f"{expense['category']}: {expense['amount']}")
+    print("All expenses:")
+    for e in expenses:
+        print(f"  {e['category']}: ${e['amount']:.2f}")
     print()
 
-
 def show_total():
-    total=0
-    for expense in expenses:
-        total += expense["amount"]
-    print("Total spent:", total, "\n")
+    total = sum(e["amount"] for e in expenses)
+    print(f"Total spent: ${total:.2f}\n")
 
 def category_summary():
-    summary={}
-    for expense in expenses:
-        cate = expense["category"]
-        summary[cate] = summary.get(cate, 0) + expense["amount"]
-
-    print("Category Summary: ")
-    for cate, amt in summary.items():
-        print(f"{cate} : {amt}")
+    if not expenses:
+        print("No expenses recorded.\n")
+        return
+    summary = {}
+    for e in expenses:
+        summary[e["category"]] = summary.get(e["category"], 0) + e["amount"]
+    print("Category Summary:")
+    for category, total in summary.items():
+        print(f"  {category}: ${total:.2f}")
     print()
 
 def main():
+    load_expenses()
     while True:
         print("1. Add expense")
-        print("2. View expense")
+        print("2. View expenses")
         print("3. Show total")
         print("4. Category summary")
-        print("5. Exit")
+        print("5. Save and exit")
+        choice = input("Choose an option: ")
 
-        choice=input("Choose an option")
-
-        if choice=="1":
+        if choice == "1":
             add_expense()
-        elif choice=="2":
-            view_expense()
-        elif choice=="3":
+        elif choice == "2":
+            view_expenses()
+        elif choice == "3":
             show_total()
-        elif choice=="4":
+        elif choice == "4":
             category_summary()
-        elif choice=="5":
+        elif choice == "5":
+            save_expenses()
             print("Goodbye!")
             break
         else:
-            print("Invalid option\n")
+            print("Invalid option.\n")
 
 main()
